@@ -57,7 +57,7 @@ const Header = () => {
 					width: "92.5em"
 				},
 				"@media only screen and (min-width: 64em)": {
-					width: "92.5em"
+					width: "90.5em"
 				}
 			}}
 			>
@@ -138,7 +138,7 @@ const Header = () => {
 				<Flex
 					sx={{
 						mt: "3px",
-						ml: "120px"
+						ml: "80px"
 					}}
 				>
 					<FiBell
@@ -195,7 +195,7 @@ const Header = () => {
 						color: "white",
 						height: "40px",
 						width: "40px",
-						marginLeft: "30px",
+						marginLeft: "50px",
 						marginTop: "30px"
 					}} 
 				/>
@@ -206,7 +206,7 @@ const Header = () => {
 						width: "40px",
 						marginTop: "30px",
 						position: "relative",
-						left: "76em"
+						left: "74em"
 					}}  
 				/>
 				<Button
@@ -214,7 +214,7 @@ const Header = () => {
 						color: "white",
 						bg: "red",
 						position: "relative",
-						left: "78.8em",
+						left: "75.8em",
 						bottom: "15px"
 					}}
 				>Đăng Nhập</Button>

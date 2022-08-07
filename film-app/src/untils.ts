@@ -3,4 +3,4 @@ export const styleNav = {
 	marginLeft: "10px",
 	color: "rgba(255,255,255,0.87)",
 }
-export const showImage = "https://image.tmdb.org/t/p/w500"
+export const showImage = "https://image.tmdb.org/t/p/w300"

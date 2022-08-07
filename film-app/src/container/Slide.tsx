@@ -33,9 +33,7 @@ const Slide = ({ dataSlide }: DataSlide) => {
 	return(
 		<Box
 			sx={{
-				ml: "30px",
-				width: "92em",
-				mt: "20px"
+				width: "89em",
 			}}
 		>
 			<Slider {...settings} responsive={responsiveSettings}>
@@ -52,7 +50,7 @@ const Slide = ({ dataSlide }: DataSlide) => {
 									transform: "scale(1)",
 									WebkitTransition: ".3s ease-in-out",
 									transition: ".3s ease-in-out",
-									borderRadius: "6px",
+									borderRadius: "10px",
 									":hover": {
 										WebkitTransform: "scale(1)",
 										transform: "scale(1)",
@@ -60,8 +58,8 @@ const Slide = ({ dataSlide }: DataSlide) => {
 										width: "100%"
 									},
 									"@media only screen and (max-width:  47.9375em)": {
-										height: "600px",
-										width: "99%"
+										height: "500px",
+										width: "100%"
 									}
 								}}
 								alt=""
