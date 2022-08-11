@@ -4,7 +4,7 @@ body {
 	margin: 0;
 	font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
 	Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-	background: #050505;
+	background: #1c1c1e;
 }
 
 a {
@@ -25,13 +25,8 @@ a {
 		background: black;
 	}
 }
-@media only screen and (max-width: 47.9375em){
-	.slick-next:before, .slick-prev:before{
-		display:none;
-	}
+
+.slick-next:before, .slick-prev:before{
+	display:none;
 }
-@media only screen and (min-width: 48em) and (max-width:64em){
-	.slick-next:before, .slick-prev:before{
-		display:none;
-	}
-}
+

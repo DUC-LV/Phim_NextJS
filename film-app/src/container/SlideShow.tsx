@@ -1,13 +1,15 @@
 import React from "react";
-import { Box, Text, Image } from "theme-ui";
+import { Box, Text, Image, Flex } from "theme-ui";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import { imageLogo, showImage } from "../untils";
+import { AiFillStar } from "react-icons/ai"
 export interface DataSlider {
-	image: string;
-	name: string;
-	id: number;
+	image: string | undefined;
+	name: string | undefined;
+	id: number | undefined;
+	vote_average: string | undefined;
 }
 export interface DataSlide {
 	dataSlide: DataSlider[];
@@ -15,10 +17,9 @@ export interface DataSlide {
 }
 const SlideShow = ({ dataSlide, name }: DataSlide) => {
 	const settings = {
-		dots: true,
 		infinite: true,
 		slidesToShow: 5,
-		slidesToScroll: 1,
+		slidesToScroll: 5,
 	}
 	const responsiveSettings = [
 		{
@@ -31,18 +32,13 @@ const SlideShow = ({ dataSlide, name }: DataSlide) => {
 	return(
 		<Box
 			sx={{
-				width: "70em",
-				ml: "140px",
-				mt: "40px",
-				"@media only screen and (max-width:  47.9375em)": {
-					position: "relative",
-					right: "140px",
-					width: "90em",
+				"@media screen and (min-width: 1024px)": {
+					padding: "40px 332px 0px 285px",
 				}
 			}}
 		>
 			<Text 
-				as="h2"
+				as="h3"
 				sx={{
 					color: "rgba(255,255,255,0.87)",
 				}}
@@ -54,34 +50,67 @@ const SlideShow = ({ dataSlide, name }: DataSlide) => {
 					}
 					return(
 						<Box key={index}>
+							
 							<Image
 								sx={{
-									height: "350px",
-									width: "220px",
-									p: "4px",
 									cursor: "pointer",
+									borderRadius: "10px",
 									WebkitTransform: "scale(1.1)",
 									transform: "scale(1)",
 									WebkitTransition: ".3s ease-in-out",
 									transition: ".3s ease-in-out",
-									borderRadius: "10px",
 									mt: "15px",
 									":hover": {
 										WebkitTransform: "scale(1)",
 										transform: "scale(1)",
 										border: "3px solid white",
-										width: "100%"
+										width: "92%"
 									},
-									"@media only screen and (max-width:  47.9375em)": {
-										height: "200px",
-										width: "100%",
-										position: "relative",
-										right: "240px",
+									"@media only screen and (min-width: 1024px)": {
+										height: "230px",
+										width: "92%",
 									}
 								}}
 								alt=""
 								src={(showImage + item.image) || item.image} 
 							/>
+							<Flex
+								sx={{
+									height: "25px",
+									width: "46px",
+									borderRadius: "10px",
+									background: "red",
+									position: "relative",
+									bottom: "220px",
+									left: "16px",
+									cursor: "pointer"
+								}}
+							>
+								<Text
+									sx={{
+										color: "white",
+										ml: "4px"
+									}}
+								>{item?.vote_average}</Text>
+								<AiFillStar 
+									style={{
+										color: "white",
+										float: "right",
+										position: "relative",
+										top: "4px"
+									}}
+								/>
+							</Flex>
+							<Text 
+								as="p"
+								sx={{
+									color: "#ced2d8",
+									width: "160px",
+									textAlign: "center",
+									position: "relative",
+									bottom: "12px"
+								}}
+							>{item.name}</Text>
 						</Box>
 					)
 				})}

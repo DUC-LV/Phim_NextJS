@@ -3,7 +3,7 @@ import { Box } from "theme-ui";
 
 const Search = () => {
 	return(
-		<Box></Box>
+		<Box sx={{ ml: "260px"}}>haha</Box>
 	)
 }
 export default Search;

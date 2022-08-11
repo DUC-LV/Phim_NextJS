@@ -1,191 +1,240 @@
 /* eslint-disable react/jsx-key */
 import React, { useState, useCallback } from "react";
-import { Box, Button, Flex, Image, Input, NavLink } from "theme-ui";
-import { imageLogo, styleNav } from "../untils";
-import { FiSearch, FiBell } from "react-icons/fi";
-import { BsPeople } from "react-icons/bs";
+import { Box, Button, Flex, Image, Input, NavLink, Text } from "theme-ui";
+import { imageLogo, styleIconHeader, styleNav } from "../untils";
+import { BsPeople, BsBookmarkCheck } from "react-icons/bs";
 import { RiMenu2Line } from "react-icons/ri";
+import { AiOutlineHome, AiOutlineFieldTime } from "react-icons/ai";
+import { BiLogOutCircle, BiMoviePlay } from "react-icons/bi";
+import { TiFlowChildren } from "react-icons/ti";
+import { GiAtomicSlashes } from "react-icons/gi";
+import { CgProfile } from "react-icons/cg";
 import { useRouter } from "next/router";
+import { FiSearch } from "react-icons/fi";
+
 const Header = () => {
 	const category = [
 		{
 			id: 1,
 			name: "Trang Chủ",
 			routLink: "/",
-			color: ""
+			color: "#989898",
+			icon: <AiOutlineHome style={styleIconHeader}/>
 		},
 		{
 			id: 2,
 			name: "Phim Chiếu Rạp",
 			routLink: "/phim-chieu-rap",
-			color: ""
+			color: "#989898",
+			icon: <BiMoviePlay style={styleIconHeader}/>
 		},
 		{
 			id: 3,
 			name: "Phim Thiếu Nhi",
 			routLink: "/phim-thieu-nhi",
-			color: ""
+			color: "#989898",
+			icon: <TiFlowChildren style={styleIconHeader}/>
 		},
 		{
 			id: 4,
 			name: "Bảng Xếp Hạng",
 			routLink: "/bang-xep-hang",
-			color: ""
+			color: "#989898",
+			icon: <GiAtomicSlashes style={styleIconHeader}/>
 		}
 	]
-	const [searchTxt, setSearchTxt] = useState("");
+	const personal = [
+		{
+			id: 1,
+			name: "Bookmaked",
+			icon: <BsBookmarkCheck style={styleIconHeader}/>,
+			routLink: "/haha",
+			color: "#989898",
+		},
+		{
+			id: 2,
+			name: "Lịch Sử",
+			icon: <AiOutlineFieldTime style={styleIconHeader}/>,
+			routLink: "/haha",
+			color: "#989898",
+		}
+	]
+	const general = [
+		{
+			id: 1,
+			name: "Profile",
+			icon: <CgProfile style={styleIconHeader}/>,
+			routLink: "/haha",
+			color: "#989898",
+		},
+		{
+			id: 2,
+			name: "Đăng Nhập",
+			icon: <BiLogOutCircle style={styleIconHeader}/>,
+			routLink: "/haha",
+			color: "#989898",
+		}
+	]
 	const router = useRouter();
-	const handleSearch = useCallback(() => {
-		if (!searchTxt) return;
-		router.push({
-			pathname : `/search`,
-			query:{q:searchTxt}
-		})
-	}, [router, searchTxt]);
-		
 	return(
-		<Box>
-			<Flex
+		<>
+		<Box
 			sx={{
-				mt: "10px",
-				ml: "50px",
-				height: "60px",
-				"@media only screen and (max-width: 47.9375em)": {
+				width: "260px",
+				height: "100%",
+				borderRight: "1px solid #2b2a2b",
+				position: "fixed",
+				left: 0,
+				bottom: "1px",
+				"@media only screen and (max-width: 739px)": {
 					display: "none"
 				},
-				"@media only screen and (min-width: 48em) and (max-width:64em)": {
-					width: "92.5em"
-				},
-				"@media only screen and (min-width: 64em)": {
-					width: "90.5em"
-				}
 			}}
-			>
-				<Image
-					alt=""
-					src={imageLogo}
-					sx={{
-						height: "40px",
-						width: "80px",
-						borderRadius: "8px",
-					}}
-				/>
-				<Flex as="nav" sx={styleNav}>
-					{category.map((item:any) => {
-						if(router.pathname == (`${item.routLink}`)){
-							item.color = "red"
-						}
-						return(
-							<NavLink
-								onClick={() => {
-									router.push({
-										pathname: item.routLink
-									})
-								}}
-								key={item.id} 
-								p={2} 
-								sx={{
-									ml: "1.8em",
-									cursor: "pointer",
-									fontSize: "16px",
-									":hover": {
-										color: "white"
-									},
-									color: item.color,
-									
-								}}
-							>{item.name}</NavLink>
-						)
-					})}
-				</Flex>
-				<Flex>
-					<Input
-						value={searchTxt}
-						onChange={(e: any) => setSearchTxt(e.target.value)}
-						onKeyPress = {event => {
-							if(event.key === 'Enter'){
-								handleSearch()
-							}
-						}}
-						placeholder="Tìm Kiếm"
-						sx={{
-							height: "35px",
-							width: "300px",
-							border: "1px solid rgba(255,255,255,0.87)",
-							borderRadius: "10px",
-							outline: "none",
-							color: "white",
-							"::placeholder": {
-								color: "white"
-							},
-							mt: "3px",
-							ml: "120px"
-						}}
-					/>
-					<FiSearch 
-						style={{
-							color: "white", 
-							height: "25px", 
-							width: "25px",
-							position: "relative",
-							top: "7px",
-							right: "30px",
-							cursor: "pointer"
-						}}
-						onClick={handleSearch}
-					/>
-				</Flex>
-				<Flex
-					sx={{
-						mt: "3px",
-						ml: "80px"
-					}}
-				>
-					<FiBell
-						style={{
-							color: "white",
-							height: "25px",
-							width: "25px",
-							cursor: "pointer",
-							position: "relative",
-							top: "5px"
-						}}
-					/>
-					<Button
-						sx={{
-							height: "35px",
-							width: "100px",
-							bg: "#ED2C25",
-							color: "white",
-							cursor: "pointer",
-							borderRadius: "10px",
-							ml: "30px",
-							fontSize: "90%"
-						}}
-					>Mua Gói</Button>
-					<BsPeople
-						style={{
-							color: "white",
-							height: "25px",
-							width: "25px",
-							cursor: "pointer",
-							marginLeft: "30px",
-							position: "relative",
-							top: "5px"
-						}} 
-					/>
-				</Flex>
-			</Flex>
-			{/* reposive mobile */}
-			<Flex
+		>
+			<Image
+				alt=""
+				src={imageLogo}
 				sx={{
-					"@media only screen and (max-width:  47.9375em)": {
+					height: "60px",
+					width: "150px",
+					borderRadius: "6px",
+					mt: "10px",
+					ml: "40px"
+				}}
+			/>
+			<Text
+				as="h3"
+				sx={{
+					color: "white",
+					mt: "60px",
+					ml: "40px",
+					fontSize: "20px",
+					fontWeight: "700"
+				}}
+			>MENU</Text>
+			<Box as="nav" sx={{mt: "20px"}}>
+				{category.map((item:any) => {
+					if(router.pathname == (`${item.routLink}`)){
+						item.color = "red"
+					}
+					return(
+						<Flex key={item.id}>
+							{item.icon}
+							<NavLink
+							onClick={() => {
+								router.push({
+									pathname: item.routLink
+								})
+							}}
+							key={item.id} 
+							p={2} 
+							sx={{
+								ml: "0.5em",
+								cursor: "pointer",
+								fontSize: "16px",
+								":hover": {
+									color: "white"
+								},
+								color: item.color,
+								
+							}}
+							>{item.name}</NavLink>
+						</Flex>
+					)
+				})}
+			</Box>
+			<Text
+				as="h3"
+				sx={{
+					color: "white",
+					mt: "50px",
+					ml: "40px",
+					fontSize: "20px",
+					fontWeight: "700"
+				}}
+			>PERSONAL</Text>
+			<Box as="nav" sx={{mt: "20px"}}>
+				{personal.map((item:any) => {
+					if(router.pathname == (`${item.routLink}`)){
+						item.color = "red"
+					}
+					return(
+						<Flex key={item.id}>
+							{item.icon}
+							<NavLink
+							onClick={() => {
+								router.push({
+									pathname: item.routLink
+								})
+							}}
+							key={item.id} 
+							p={2} 
+							sx={{
+								ml: "0.5em",
+								cursor: "pointer",
+								fontSize: "16px",
+								":hover": {
+									color: "white"
+								},
+								color: item.color,
+								
+							}}
+							>{item.name}</NavLink>
+						</Flex>
+					)
+				})}
+			</Box>
+			<Text
+				as="h3"
+				sx={{
+					color: "white",
+					mt: "50px",
+					ml: "40px",
+					fontSize: "20px",
+					fontWeight: "700"
+				}}
+			>GENERAL</Text>
+			<Box as="nav" sx={{mt: "20px"}}>
+				{general.map((item:any) => {
+					if(router.pathname == (`${item.routLink}`)){
+						item.color = "red"
+					}
+					return(
+						<Flex key={item.id}>
+							{item.icon}
+							<NavLink
+							onClick={() => {
+								router.push({
+									pathname: item.routLink
+								})
+							}}
+							key={item.id} 
+							p={2} 
+							sx={{
+								ml: "0.5em",
+								cursor: "pointer",
+								fontSize: "16px",
+								":hover": {
+									color: "white"
+								},
+								color: item.color,
+								
+							}}
+							>{item.name}</NavLink>
+						</Flex>
+					)
+				})}
+			</Box>
+		</Box>
+		<Flex
+				sx={{
+					"@media only screen and (max-width: 739px)": {
 						display: "block"
 					},
-					"@media only screen and (min-width: 48em) and (max-width:64em)": {
+					"@media only screen and (min-width: 740px) and (max-width: 1023px)": {
 						display: "none"
 					},
-					"@media only screen and (min-width: 64em)": {
+					"@media only screen and (min-width: 1024px)": {
 						display: "none"
 					}
 				}}
@@ -195,8 +244,8 @@ const Header = () => {
 						color: "white",
 						height: "40px",
 						width: "40px",
-						marginLeft: "50px",
-						marginTop: "30px"
+						marginLeft: "8px",
+						marginTop: "10px"
 					}} 
 				/>
 				<FiSearch
@@ -204,7 +253,6 @@ const Header = () => {
 						color: "white",
 						height: "40px",
 						width: "40px",
-						marginTop: "30px",
 						position: "relative",
 						left: "74em"
 					}}  
@@ -219,7 +267,7 @@ const Header = () => {
 					}}
 				>Đăng Nhập</Button>
 			</Flex>
-		</Box>
+		</>
 	)
 }
 export default Header;

@@ -3,13 +3,12 @@ import { Box } from "theme-ui";
 import getNowPlaying from "../service/getNowPlaying";
 import {GetServerSideProps} from "next"
 import getTopMovie from "../service/getTopMovie";
-import Slide from "../container/Slide";
-import { showImage } from "../untils";
-import SlideShow from "../container/SlideShow";
 import getMovieTheater from "../service/getMovieTheater";
 import getPopularMovie from "../service/getPopularMovie ";
 import getCartoonMovie from "../service/getCartoonMovie";
-import getMyFilm from "../service/getMyFilm";
+import Slide from "../container/Slide";
+import { showImage } from "../untils";
+import SlideShow from "../container/SlideShow";
 type Props = {
 	dataNowPlaying:Array<Object>;
 	dataTopMovie:Array<Object>;
@@ -47,27 +46,26 @@ const Home = ({ dataNowPlaying, dataTopMovie, dataMovieTheater, dataPopularMovie
 		})
 	},[])
 	return(
-		<Box 
-			sx={{ 
-				width: "90em", 
-				ml: "50px",
-			}}
-		>
-			<Slide
+		<Box>
+			<Slide 
 				dataSlide={dataTopMovie?.map((item:any) => {
 					return {
-						image: showImage+item?.poster_path,
+						image: showImage+item?.backdrop_path,
 						name: item?.title,
-						id: item?.id
+						id: item?.id,
+						overview: item?.overview,
+						release_date: item?.release_date,
+						vote_average: item?.vote_average,
 					}
 				})}
 			/>
 			<SlideShow
 				dataSlide={dataNowPlaying?.map((item:any) => {
 					return {
-						image: item?.backdrop_path,
+						image: showImage+item?.backdrop_path,
 						name: item?.title,
-						id: item?.id
+						id: item?.id,
+						vote_average: item?.vote_average,
 					}
 				})}
 				name="Đang Phát"
@@ -77,7 +75,8 @@ const Home = ({ dataNowPlaying, dataTopMovie, dataMovieTheater, dataPopularMovie
 					return {
 						image: item?.poster_path,
 						name: item?.title,
-						id: item?.id
+						id: item?.id,
+						vote_average: item?.vote_average,
 					}
 				})}
 				name="Phim Chiếu Rạp"
@@ -87,7 +86,8 @@ const Home = ({ dataNowPlaying, dataTopMovie, dataMovieTheater, dataPopularMovie
 					return {
 						image: item?.poster_path,
 						name: item?.title,
-						id: item?.id
+						id: item?.id,
+						vote_average: item?.vote_average,
 					}
 				})}
 				name="Phim Hoạt Hình"
@@ -97,7 +97,8 @@ const Home = ({ dataNowPlaying, dataTopMovie, dataMovieTheater, dataPopularMovie
 					return {
 						image: item?.poster_path,
 						name: item?.title,
-						id: item?.id
+						id: item?.id,
+						vote_average: item?.vote_average,
 					}
 				})}
 				name="Phim Thịnh Hành"
