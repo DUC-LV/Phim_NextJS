@@ -2,7 +2,7 @@ import axios, { AxiosRequestConfig } from "axios";
 
 const instance = axios.create({
     baseURL:'https://api.themoviedb.org/3/movie/',
-    // proxy: { host: '192.168.193.12', port: 3128 },
+    // proxy: { host: '13.224.167.74', port: 443 },
     headers: {
         'Content-Type':'application/json'
     }

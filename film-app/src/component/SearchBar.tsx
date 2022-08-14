@@ -10,7 +10,7 @@ const SearchBar = () => {
 	// console.log(showImage+dataTrending?.[9]?.backdrop_path)
 	useEffect(() => {
 		getTrending().then((res:any) => {
-			console.log(res.data.results)
+			// console.log(res.data.results)
 			setDataTrending(res.data.results)
 		})
 	},[])
@@ -196,7 +196,7 @@ const SearchBar = () => {
 			<Flex sx={{ml: "25px", mt: "10px"}}>
 				<Image 
 					alt=""
-					src={showImage+dataTrending?.[10]?.backdrop_path}
+					src={showImage+dataTrending?.[8]?.backdrop_path}
 					sx={{
 						height: "180px",
 						width: "150px", 
@@ -205,8 +205,8 @@ const SearchBar = () => {
 					}}
 				/>
 				<Box sx={{ml: "20px", mt: "20px"}}>
-					<Text as="h3" sx={{ color: "white"}}>{dataTrending?.[10]?.original_title}</Text><br></br>
-					<Text sx={{ color: "#969696"}}>{dataTrending?.[10]?.release_date}</Text>
+					<Text as="h3" sx={{ color: "white"}}>{dataTrending?.[8]?.original_title}</Text><br></br>
+					<Text sx={{ color: "#969696"}}>{dataTrending?.[8]?.release_date}</Text>
 					<Flex
 						sx={{
 							height: "25px",
@@ -242,7 +242,18 @@ const SearchBar = () => {
 						height: "180px",
 						width: "150px", 
 						borderRadius: "10px",
-						cursor: "pointer"
+						cursor: "pointer",
+						position: "relative",
+						top: 0,
+						right: 0,
+						bottom: 0,
+						left: 0,
+						"::after": {
+							background: "#dddddd",
+							width: "100%",
+							height: "100%",
+							position: "absolute"
+						}
 					}}
 				/>
 				<Box sx={{ml: "20px", mt: "20px"}}>

@@ -39,12 +39,12 @@ const Home = ({ dataNowPlaying, dataTopMovie, dataMovieTheater, dataPopularMovie
 	// console.log("dataPopularMovie", dataPopularMovie)
 	const [dataCartoonMovie, setDataCartoonMovie] = useState<any>();
 	// console.log("dataCartoonMovie", dataCartoonMovie)
-	useEffect(() => {
-		getCartoonMovie(1)
-		.then((res:any) => {
-			setDataCartoonMovie(res.data.results)
-		})
-	},[])
+	// useEffect(() => {
+	// 	getCartoonMovie(1)
+	// 	.then((res:any) => {
+	// 		setDataCartoonMovie(res.data.results)
+	// 	})
+	// },[])
 	return(
 		<Box>
 			<Slide 
@@ -62,7 +62,7 @@ const Home = ({ dataNowPlaying, dataTopMovie, dataMovieTheater, dataPopularMovie
 			<SlideShow
 				dataSlide={dataNowPlaying?.map((item:any) => {
 					return {
-						image: showImage+item?.backdrop_path,
+						image: showImage+item?.poster_path,
 						name: item?.title,
 						id: item?.id,
 						vote_average: item?.vote_average,

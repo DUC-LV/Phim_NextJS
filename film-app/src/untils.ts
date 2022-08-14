@@ -4,10 +4,14 @@ export const styleNav = {
 	color: "rgba(255,255,255,0.87)",
 }
 export const showImage = "https://image.tmdb.org/t/p/original";
+export const showImageSlide = "https://image.tmdb.org/t/p/w500"
 export const styleIconHeader = {
 	color: "#989898",
 	height: "23px",
 	width: "23px",
 	marginTop: "8px",
 	marginLeft: "40px"
+}
+export const convertSlug = (TXT:string) => {
+    return TXT.toLowerCase().replace(/ /g,'-').replace(/[^\w-]+/g,'')
 }

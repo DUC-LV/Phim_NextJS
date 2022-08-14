@@ -27,17 +27,17 @@ const Slide = ({ dataSlide }: DataSlide) => {
 	return(
 		<Container
 			sx={{
-				// "@media screen and (max-width: 739px)": {
-				// 	ml: "20px",
-				// 	width: "46.7em",
-				// 	mt: "15px"
-				// },
-				// "@media screen and (min-width: 740px) and (max-width: 1023px)": {
-				// 	ml: "274px",
-				// 	mt: "20px"
-				// },
+				"@media screen and (max-width: 739px)": {
+					ml: "30px",
+					width: "85em",
+					mt: "15px"
+				},
+				"@media screen and (min-width: 740px) and (max-width: 1023px)": {
+					padding: "20px 0px 0px 285px",
+				},
 				"@media screen and (min-width: 1024px)": {
 					padding: "20px 332px 0px 285px",
+					height: "450px",
 				}
 			}}
 		>
@@ -50,22 +50,25 @@ const Slide = ({ dataSlide }: DataSlide) => {
 									cursor: "pointer",
 									borderRadius: "10px",
 									"@media only screen and (max-width: 739px)": {
+										width: "100%",
+										height: "650px",
 									},
 									"@media only screen and (min-width: 740px) and (max-width: 1023px)": {
 									},
 									"@media only screen and (min-width: 1024px)": {
 										width: "100%",
 										height: "450px",
-									}
+									}, 
 								}}
 								alt=""
 								src={item.image} 
 							/>
-							{/* <Box
+							<Box
 								sx={{
 									position: "relative",
 									bottom: "400px",
 									marginLeft: "30px",
+									opacity: 0.0 - 1.0
 								}}
 							>
 								<Text
@@ -89,7 +92,7 @@ const Slide = ({ dataSlide }: DataSlide) => {
 										mt: "20px"
 									}}
 								>{item?.overview}</Text>
-							</Box> */}
+							</Box>
 						</Box>
 					)
 				})}
