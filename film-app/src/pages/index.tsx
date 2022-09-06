@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Box } from "theme-ui";
+import { Box, Image } from "theme-ui";
 import getNowPlaying from "../service/getNowPlaying";
 import {GetServerSideProps} from "next"
 import getTopMovie from "../service/getTopMovie";
@@ -45,6 +45,7 @@ const Home = ({ dataNowPlaying, dataTopMovie, dataMovieTheater, dataPopularMovie
 	// 		setDataCartoonMovie(res.data.results)
 	// 	})
 	// },[])
+	// const logo = "https://static.wikia.nocookie.net/logos/images/7/77/TV360.png/revision/latest?cb=20210718041016&path-prefix=vi"
 	return(
 		<Box>
 			<Slide 
@@ -80,17 +81,6 @@ const Home = ({ dataNowPlaying, dataTopMovie, dataMovieTheater, dataPopularMovie
 					}
 				})}
 				name="Phim Chiếu Rạp"
-			/>
-			<SlideShow
-				dataSlide={dataCartoonMovie?.map((item:any) => {
-					return {
-						image: item?.poster_path,
-						name: item?.title,
-						id: item?.id,
-						vote_average: item?.vote_average,
-					}
-				})}
-				name="Phim Hoạt Hình"
 			/>
 			<SlideShow
 				dataSlide={dataPopularMovie?.map((item:any) => {

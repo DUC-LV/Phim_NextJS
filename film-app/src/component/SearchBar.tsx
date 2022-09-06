@@ -192,7 +192,7 @@ const SearchBar = () => {
 					<Text sx={{color: "#969696",ml: "14px", position: "relative", top: "4px"}}>Crime</Text>
 				</Box>
 			</Flex>
-			<Text as="h3" sx={{ color: "white", mt:"20px", ml: "25px"}}>Trending</Text>
+			{/* <Text as="h3" sx={{ color: "white", mt:"20px", ml: "25px"}}>Trending</Text>
 			<Flex sx={{ml: "25px", mt: "10px"}}>
 				<Image 
 					alt=""
@@ -284,7 +284,7 @@ const SearchBar = () => {
 						/>
 					</Flex>
 				</Box>
-			</Flex>
+			</Flex> */}
 			<Button sx={{height: "40px", width: "262px", bg: "#333335", color: "white", borderRadius: "10px", mt: "10px", ml: "25px", cursor: "pointer"}}>See More</Button>
 		</Box>
 		{/* <Flex

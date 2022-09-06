@@ -9,7 +9,6 @@ const Layout = ({ children }: React.PropsWithChildren<{}>) => {
 			<Header />
 			<SearchBar />
 			{children}
-
 		</Box>
 	)
 }
