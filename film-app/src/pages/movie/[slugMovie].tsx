@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/rules-of-hooks */
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import React, { useEffect, useState} from "react";
@@ -21,8 +20,6 @@ const MovieDetail = ({ dataDetailMovie }: Props) => {
 	return(
 		<Box
 		sx={{
-			mt: "200px",
-			ml: "100px",
             color: 'white'
 		}}
 		>hahadadad</Box>

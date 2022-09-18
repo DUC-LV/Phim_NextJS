@@ -1,9 +1,9 @@
 import React from "react";
 import { Box } from "theme-ui";
 
-const ChildrenMovie = () => {
+const MovieTheater = () => {
 	return(
 		<Box></Box>
 	)
 }
-export default ChildrenMovie;
+export default MovieTheater;

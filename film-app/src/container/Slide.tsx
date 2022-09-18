@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
+import Slider from "react-slick";
+import { Box, Container, Image } from "theme-ui";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { Box, Container, Image, Text } from "theme-ui";
-import Slider from "react-slick";
+import { useRouter } from "next/router";
+import { convertSlug } from "../untils";
 export interface DataSlider {
 	image: string | undefined;
 	name: string | undefined;
@@ -14,85 +16,86 @@ export interface DataSlider {
 export interface DataSlide {
 	dataSlide: DataSlider[]
 }
-
+export interface ResponsiveObject {
+    breakpoint:number,
+    slidesToShow:number,
+    slidesToScroll: number
+}
+export interface ReposiveSlide {
+    reposiveSlide: ResponsiveObject[]
+}
 const Slide = ({ dataSlide }: DataSlide) => {
-	const settings = {
+	const [slideIndex, setSlideIndex] = useState(0)
+	const setting = {
+		speed: 1000,
 		infinite: true,
-		slidesToShow: 1,
-		slidesToScroll: 1,
+		autoplaySpeed: 3000,
+		beforeChange: (current:any,next:any) => setSlideIndex(next),
 		autoplay: true,
-		autoplaySpeed: 5000,
-		pauseOnHover: true,
+		centerMode: true,
+		slidesToShow: 3,
+		slidesToScroll: 1,
 	}
+	const responsiveSettings = [
+		{
+			breakpoint: 500,
+			settings: {
+				slidesToShow: 1,
+				slidesToScroll: 1,
+			}
+		},
+		{
+			breakpoint: 768,
+			settings: {
+				slidesToShow: 3,
+				slidesToScroll: 1,
+			}
+		},
+		{
+			breakpoint: 1123,
+			settings: {
+				slidesToShow: 3,
+				slidesToScroll: 1,
+			}
+		},
+	];
+	const router = useRouter();
 	return(
 		<Container
 			sx={{
-				"@media screen and (max-width: 739px)": {
-					ml: "30px",
-					width: "85em",
-					mt: "15px"
-				},
-				"@media screen and (min-width: 740px) and (max-width: 1023px)": {
-					padding: "20px 0px 0px 285px",
-				},
-				"@media screen and (min-width: 1024px)": {
-					padding: "20px 332px 0px 285px",
-					height: "450px",
-				}
+				width: '96%',
+				mt: '20px',
 			}}
 		>
-			<Slider {...settings}>
-				{dataSlide?.map((item:any, index: any) => {
+			<Slider {...setting} responsive={responsiveSettings}>
+				{dataSlide.map((item:any, index: any) => {
 					return(
-						<Box key={index} sx={{ borderRadius: "10px"}}>
+						<Box 
+							className={index === slideIndex ? 'slide slide-active' : 'slide'} 
+							key={index}
+							sx={{
+								width: '100%',
+								height: '100%',
+								outline: 'none',
+							}}
+						>
 							<Image
-								sx={{
-									cursor: "pointer",
-									borderRadius: "10px",
-									"@media only screen and (max-width: 739px)": {
-										width: "100%",
-										height: "650px",
-									},
-									"@media only screen and (min-width: 740px) and (max-width: 1023px)": {
-									},
-									"@media only screen and (min-width: 1024px)": {
-										width: "100%",
-										height: "450px",
-									}, 
-								}}
 								alt=""
-								src={item.image} 
-							/>
-							<Box
+								src={item.image}
 								sx={{
-									position: "relative",
-									bottom: "400px",
-									marginLeft: "30px",
-									opacity: 0.0 - 1.0
+									borderRadius: '20px',
+									cursor: 'pointer',
 								}}
-							>
-								<Text
-									as="h1"
-									sx={{
-										color: "#4e75f8"
-									}}
-								>{item?.name}</Text>
-								<Text
-									as="h2"
-									sx={{
-										color: "rgba(246, 244, 258)",
-										mt: "40px"
-									}}
-								>Release date:&ensp;{item?.release_date}</Text>
-								<Text
-									as="p"
-									sx={{
-										color: "rgba(246, 244, 258)",
-										width: "500px",
-										mt: "20px"
-									}}
-								>{item?.overview}</Text>
-							</Box>
+								onClick={() => {
+									router.push({
+										pathname: "/movie/[slugMovie]",
+										query: { 
+											slugMovie: convertSlug(item?.name),
+											id: item?.id
+										}
+									})
+								}}
+							/>
 						</Box>
 					)
 				})}

@@ -1,9 +1,9 @@
 import React from "react";
 import { Box } from "theme-ui";
 
-const MovieThearter = () => {
+const Login = () => {
 	return(
 		<Box></Box>
 	)
 }
-export default MovieThearter;
+export default Login;
