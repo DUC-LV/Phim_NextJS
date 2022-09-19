@@ -112,7 +112,10 @@ const SlideShow = ({ dataSlide, name }: DataSlide) => {
 											border: "3px solid red",
 											width: "90%"
 										},
-									}
+									},
+									"@media only screen and (max-width: 768px)": {
+										height: '200px',
+									},
 								}}
 								alt=""
 								src={(showImageSlide + item.image) || item.image} 

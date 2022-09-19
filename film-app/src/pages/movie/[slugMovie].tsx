@@ -1,10 +1,13 @@
 import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
-import React, { useEffect, useState} from "react";
-import { Box } from "theme-ui";
+import React from "react";
+import { Box, Flex } from "theme-ui";
 import getDetailMovie from "../../service/getDetailMovie";
+export interface DataDetailMovie {
+	adult: boolean;
+}
 type Props = {
-	dataDetailMovie:Object
+	dataDetailMovie:DataDetailMovie,
 }
 export const getServerSideProps: GetServerSideProps<Props> = async ( {query} ) => {
 	const { id } = query;
@@ -16,13 +19,9 @@ export const getServerSideProps: GetServerSideProps<Props> = async ( {query} ) =
 	}
 }
 const MovieDetail = ({ dataDetailMovie }: Props) => {
-	console.log(dataDetailMovie);
+	console.log(dataDetailMovie?.adult)
 	return(
-		<Box
-		sx={{
-            color: 'white'
-		}}
-		>hahadadad</Box>
+		<Flex></Flex>
 	)
 }
 export default MovieDetail;

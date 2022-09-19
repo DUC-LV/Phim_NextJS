@@ -13,25 +13,25 @@ const Header = () => {
 	const categories = [
 		{
 			id: 1,
-			name: "Trang Chủ",
+			name: "Trang chủ",
 			routLink: "/",
 			color: "#989898",
 		},
 		{
 			id: 2,
-			name: "Phim Chiếu Rạp",
+			name: "Phim chiếu rạp",
 			routLink: "/phim-chieu-rap",
 			color: "#989898",
 		},
 		{
 			id: 3,
-			name: "Phim Thiếu Nhi",
-			routLink: "/phim-thieu-nhi",
+			name: "Phim thịnh hành",
+			routLink: "/phim-thinh-hanh",
 			color: "#989898",
 		},
 		{
 			id: 4,
-			name: "Bảng Xếp Hạng",
+			name: "Bảng xếp hạng",
 			routLink: "/bang-xep-hang",
 			color: "#989898",
 		}

@@ -30,12 +30,12 @@ a {
 .slide {
 	width: 100%;
 	opacity: .6;
-	scale: .77;
+	transform: scale(0.77);
 	filter: blur(2px);
 }
 .slide-active {
 	opacity: 1;
-	scale: 1.2;
+	transform: scale(1.2);
 	filter: blur(0);
 }
 

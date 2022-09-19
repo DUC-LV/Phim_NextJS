@@ -1,9 +1,9 @@
 import instance from "../service/axiosClient";
 
 const getPopularMovie = {
-	getAll(){
-		const url = `popular?language=en-US&page=2`
+	getAll(page:number){
+		const url = `popular?language=en-US&page=${page}`
 		return instance.get(url)
 	}
 }
-export default getPopularMovie
+export default getPopularMovie;

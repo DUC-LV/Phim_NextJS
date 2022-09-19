@@ -1,21 +1,21 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Box } from "theme-ui";
 import LoadingMore from "../component/LoadingMore";
-import getMovieTheater from "../service/getMovieTheater";
+import getPopularMovie from "../service/getPopularMovie ";
 
-const MovieTheater = () => {
+const PopularMovie = () => {
 	const [items, setItems] = useState<any>([]);
 	const [page, setPage] = useState(0);
 	const [hasMore, setHasMore] = useState(true);
 	useEffect(() => {
-		getMovieTheater.getAll(1)
+		getPopularMovie.getAll(1)
 			.then(res => {
 				setItems(res.data.results)
 				setPage(2)
 			})
 	},[])
 	const fetchData = useCallback(() => {
-		getMovieTheater.getAll(page).then(res => {
+		getPopularMovie.getAll(page).then(res => {
 			if(!page && !items){
 				return
 			}
@@ -29,7 +29,7 @@ const MovieTheater = () => {
 	return(
 		<Box>
 			<LoadingMore
-				title="Phim chiếu rạp"
+				title="Phim thịnh hành"
 				fetchData = {fetchData}
 				hasMore = {hasMore}
 				items = {items}
@@ -37,4 +37,4 @@ const MovieTheater = () => {
 		</Box>
 	)
 }
-export default MovieTheater;
+export default PopularMovie;
