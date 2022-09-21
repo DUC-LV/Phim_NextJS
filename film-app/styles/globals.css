@@ -42,4 +42,8 @@ a {
 .slick-next:before, .slick-prev:before{
 	display:none;
 }
-
+@media only screen and (max-width: 768px){
+	.video-player{
+		width: '100px'
+	}
+}
