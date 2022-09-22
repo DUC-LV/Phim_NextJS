@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Flex, Text, Image, Button } from "theme-ui";
 import { keyframes } from "@emotion/react";
+import { GoTriangleRight } from "react-icons/go";
 const Example = () => {
+	const [count, setCount] = useState(5);
+    useEffect(() => {
+        count > 0 && setTimeout(() => setCount(count - 1), 1000);
+    }, [count]);
 	return(
 		<Flex
 			sx={{
@@ -20,7 +25,7 @@ const Example = () => {
 						fontWeight: 600,
 						lineHeight: '22px'
 					}}
-				>Tập tiếp theo sẽ phát sau 5s</Text>
+				>Tập tiếp theo sẽ phát sau {count}s</Text>
 				<Image
 					alt=""
 					src="https://image.tmdb.org/t/p/w500/uJYYizSuA9Y3DCs0qS4qWvHfZg4.jpg" 
@@ -67,27 +72,58 @@ const Example = () => {
 							textAlign: 'center',
 						}}
 					>Bỏ qua</Button>
-					<Button
+					<Flex
 						sx={{
 							height: '50px',
 							width: '260px',
 							borderRadius: '8px',
 							border: '1px solid white',
-							color: 'black',
+							background: 'grey',
+							position: 'relative',
 							ml: '30px',
-							transitionDuration: '5000ms',
-							transitionTimingFunction: 'ease-in-out',
-							msTransitionProperty: 'background-color, width',
-							backgroundColor: 'white',
-							':hover': {
-								width: '260px',
-								backgroundColor: 'grey'
-							}
+							alignItems: 'center',
 						}}
-					>Xem Ngay</Button>
+					>
+						<Flex
+							sx={{
+								position: 'absolute',
+								left: '50%',
+								transform: 'translateX(-50%)',
+								
+							}}
+						>
+							<GoTriangleRight />
+							<Text
+								sx={{
+									fontSize: '16px',
+									fontWeight: '600',
+								}}
+							>Xem ngay</Text>
+						</Flex>
+						<Button
+							sx={{
+							height: '50px',
+							borderRadius: '8px',
+							border: '1px solid white',
+							color: 'black',
+							animation: `${fadeIn} 5s infinite`,
+							animationTimingFunction: 'linear',
+							}}
+						></Button>
+					</Flex>
 				</Flex>
 			</Box>
 		</Flex>
 	)
 }
 export default Example;
+const fadeIn = keyframes({
+	from: {
+		width: '0px',
+		backgroundColor: 'white'
+	},
+	to: {
+		width: '260px',
+		backgroundColor: 'white',
+	}
+})
