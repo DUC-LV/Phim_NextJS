@@ -2,6 +2,8 @@ import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import React,{ useEffect, useState,useCallback } from "react";
 import { Box, Flex,Text } from "theme-ui";
+import LoadingMore from "../../component/LoadingMore";
+import TextClamp from "../../component/TextClamp";
 import VideoPlayer from "../../container/Video";
 import getDetailMovie from "../../service/getDetailMovie";
 import getRecommendMovie from "../../service/getRecommendMovie ";
@@ -34,10 +36,11 @@ const MovieDetail = () => {
 			getDetailMovie.getAll(Number(router.query.id))
 			.then(res => {
 				setDataDetail(res.data)
+				// console.log(res.data);
 			})
 			getRecommendMovie.getAll(Number(router.query.id),1)
 				.then(res => {
-					if(res?.data?.results && res.data.results.length > 0){
+					if(res?.data?.results && res.data.results.length > 0){   
 						setItems(res.data.results)
 						setPage(2)
 					}
@@ -57,7 +60,7 @@ const MovieDetail = () => {
         setPage(page+1)
 }, [page, items,router.query.id]);
 	return(
-		<Flex
+		<><Flex
 			sx={{
 				"@media only screen and (max-width: 768px)": {
 					flexDirection: 'column',
@@ -73,7 +76,7 @@ const MovieDetail = () => {
 				}
 			}}
 		>
-			<VideoPlayer id = {Number(router.query.id)}/>
+			<VideoPlayer id={Number(router.query.id)} />
 			<Box
 				sx={{
 					"@media only screen and (max-width: 768px)": {
@@ -101,20 +104,25 @@ const MovieDetail = () => {
 					as="p"
 					sx={{
 						color: '#989898',
-
 						"@media only screen and (min-width: 1124px)": {
 							display: 'block',
-							overflow: 'hidden',
-							textOverflow: 'ellipsis',
-							wordWrap: 'break-word',
 							maxHeight: '9em',
-							lineHeight: '1.8em',
 							maxWidth: '450px',
+							WebkitLineClamp: 3 as any,
 						},
 					}}
 				>{dataDetail?.overview}</Text>
+				{/* <TextClamp>{dataDetail?.overview}</TextClamp> */}
 			</Box>
+
 		</Flex>
+		<LoadingMore
+			title="Tương tự"
+			fetchData={fetchData}
+			hasMore={hasMore}
+			items={items} 
+		/>
+		</>
 	)
 }
 export default MovieDetail;

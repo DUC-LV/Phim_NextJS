@@ -65,15 +65,15 @@ const LoadingMore = ({ title, fetchData, items, hasMore }:Props) => {
 											height: '100px',
 										},
 										"@media only screen and (min-width: 768px) and (max-width: 1023px)": {
-											height: '200px',
+											height: '150px',
 											width: '100%',
 										},
 										"@media only screen and (min-width: 1024px) and (max-width: 1123px)": {
-											height: '250px',
+											height: '230px',
 											width: '100%',
 										},
 										"@media only screen and (min-width: 1124px)": {
-											height: '300px',
+											height: '260px',
 										}
 									}}
 									onClick={() => {

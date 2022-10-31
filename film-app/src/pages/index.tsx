@@ -18,8 +18,8 @@ type Props = {
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
 	const resDataNowPlaying = await getNowPlaying.getAll();
 	const resDataTopMovie = await getTopMovie.getAll();
-	const resMovieTheater = await getMovieTheater.getAll();
-	const resPopularMovie =await getPopularMovie.getAll();
+	const resMovieTheater = await getMovieTheater.getAll(1);
+	const resPopularMovie =await getPopularMovie.getAll(1);
 	return{
 		props: {
 			dataNowPlaying: resDataNowPlaying.data.results,

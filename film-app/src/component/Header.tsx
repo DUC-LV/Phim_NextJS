@@ -37,7 +37,7 @@ const Header = () => {
 		}
 	]
 	const router = useRouter();
-	const [searchTxt, setSearchTxt] = useState("");
+	const [searchTxt, setSearchTxt] = useState(" ");
 	const handleSearch = useCallback(() => {
 		if (!searchTxt) return;
 		router.push({
