@@ -10,39 +10,39 @@ export interface DataCheckBox {
 
 interface Ex {
     dataCheckBox: DataCheckBox;
+	checked?: boolean;
 }
 
-const CheckBox = ({ dataCheckBox }: Ex) => {
-	const { check, setCheck } = useContext(WrapperContext);
-
-	const [checked, setChecked] = useState(!check);
-    const [showMs, setShowMs] = useState(false);
+const CheckBox = ({ dataCheckBox, checked }: Ex) => {
+	const [check, setCheck] = useState(false);
 	const [bg, setbg] = useState('');
+	const [showMs, setShowMs] = useState(false);
 
-	// const selectCheckBox = () => {
-	// 	setChecked(!checked);
-	// 	if (dataCheckBox.m === 1 && checked === true) {
-	// 		setbg('#28282A');
-	// 		setCheck(true);
-	// 	} else if (dataCheckBox.m === 0) {
-	// 		setbg('');
-	// 	} else if (checked === false) {
-	// 		setbg('');
-	// 	}
-	// }
-
-
-	const selectCheckBox = useCallback(() => {
-		setChecked(!checked);
-		if (dataCheckBox.m === 1 && checked === true) {
-			setbg('#28282A');
-		} else if (dataCheckBox.m === 0) {
-			setbg('');
+	useEffect(() => {
+		if (checked === true) {
+			setCheck(true);
+		}else if (checked === false) {
 			setCheck(false);
+		}
+	}, [checked])
+
+	useEffect(() => {
+		if (checked === true && dataCheckBox.m === 1) {
+			setbg('#28282A');
+		} else if (checked === true && dataCheckBox.m === 0) {
+			setbg('');
 		} else if (checked === false) {
 			setbg('');
 		}
-	}, [checked, dataCheckBox.m, setCheck])
+	}, [checked, dataCheckBox.m])
+
+	const handle = () => {
+		setCheck(!check);
+		if (checked === true && dataCheckBox.m === 1) {
+			setShowMs(true);
+		}
+	}
+
 
     return (
         <>
@@ -57,8 +57,8 @@ const CheckBox = ({ dataCheckBox }: Ex) => {
                     marginY: '5px',
 					background: bg
                 }}>
-                <Box onClick={selectCheckBox}>
-                    {checked ? <Checkbox defaultChecked={false} value={dataCheckBox.pid} /> : <Checkbox defaultChecked={true} />}
+                <Box onClick={handle}>
+                    {check ? <Checkbox defaultChecked={true}  /> : <Checkbox defaultChecked={false}  /> }
                 </Box>
                 <Box sx={{ marginLeft: '20px' }}>
                     <Text sx={{ fontSize: '16px', fontWeight: 400, color: 'white', lineHeight: '22px' }}>

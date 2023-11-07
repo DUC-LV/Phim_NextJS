@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { Button, Checkbox, Flex, Text } from 'theme-ui';
 import BackDrop from '../component/BackDrop';
 import CheckBox from '../component/CheckBox';
@@ -41,30 +41,20 @@ const NDPage = () => {
         },
     ];
 
-	const { check, setCheck, bg, setbg, showMs, setShowMs } = useContext(WrapperContext);
+	const [checked, setChecked] = useState(false);
+	const [bg, setbg] = useState('');
 
+	const handleCheck = useCallback(() => {
+		setChecked(!checked);
+	}, [checked])
 
-	// const onClick = () => {
-	// 	if (check === true) {
-	// 		console.log('haha');
-	// 	}
-	// }
-
-	const onClick = useCallback(() => {
-		if (check === true) {
-			console.log('haha')
+	useEffect(() => {
+		if (checked === true) {
+			setbg('red');
+		}else {
+			setbg('')
 		}
-	}, [check])
-
-	console.log(check);
-
-    // const [showMs, setShowMs] = useState(false);
-
-    // const check = (m: number, checked: boolean) => {
-    //     if (m === 1 && checked === false) {
-    //         setShowMs(true);
-    //     }
-    // };
+	}, [checked])
 
     return (
         <BackDrop hidden={false}>
@@ -116,7 +106,7 @@ const NDPage = () => {
                         </Text>
                         <Flex sx={{ flexDirection: 'column' }}>
                             {data.map(item => {
-                                return <CheckBox key={item.pid} dataCheckBox={item} />;
+                                return <CheckBox key={item.pid} dataCheckBox={item} checked={checked} />;
                             })}
                         </Flex>
                     </Flex>
@@ -128,8 +118,8 @@ const NDPage = () => {
                             width: '100%',
                         }}>
                         <Flex sx={{ marginTop: '20px', alignItems: 'center' }}>
-                            <Flex>
-                                <Checkbox />
+                            <Flex onClick={handleCheck}>
+                                { checked ? <Checkbox defaultChecked={true}/> : <Checkbox defaultChecked={false}/> }
                             </Flex>
                             <Flex>
                                 <Text sx={{ fontSize: '14px', fontWeight: 400, color: 'white' }}>
@@ -139,7 +129,7 @@ const NDPage = () => {
                             </Flex>
                         </Flex>
                         <Flex sx={{ marginTop: '20px', justifyContent: 'center' }}>
-                            <Button onClick={onClick} sx={{ cursor: 'pointer' }}>Đồng ý</Button>
+                            <Button sx={{ cursor: 'pointer', background: bg }}>Đồng ý</Button>
                         </Flex>
                     </Flex>
                 </Flex>
