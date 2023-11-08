@@ -1,52 +1,21 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { Button, Checkbox, Flex, Text } from 'theme-ui';
-import BackDrop from '../component/BackDrop';
-import CheckBox from '../component/CheckBox';
-import { WrapperContext } from '../component/Layout';
+import CheckboxNd13 from './CheckboxNd13';
+import BackDrop from './BackDrop';
+import { WrapperContext } from './Layout';
+import { AiFillMinusSquare } from 'react-icons/ai';
 
-const NDPage = () => {
-    const data = [
-        {
-            pid: 1,
-            desc: `* Cung cấp Sản phẩm, hàng hóa, dịch vụ cho Khách hàng theo Hợp đồng và thực hiện quyền,
-            nghĩa vụ của Viettel theo quy định pháp luật,bao gồm nhưng không giới hạn`,
-            m: 1,
-        },
-        {
-            pid: 2,
-            desc: `* Hỗ trợ Khách hàng khi mua, sử dụng Sản phẩm,
-            hàng hóa,dịch vụ do Viettel cung cấp theo hợp đồng và quy định pháp luật`,
-            m: 1,
-        },
-        {
-            pid: 3,
-            desc: '* Nâng cao chất lượng Sản phẩm, hàng hóa, dịch vụ mà Viettel cung cấp cho Khách hàng',
-            m: 1,
-        },
-        {
-            pid: 4,
-            desc: `Kinh doanh dịch vụ tiếp thị, quảng cáo, giới thiệu sản phẩm phù hợp với nhu cầu của Khách hàng hoặc
-            Viettel cho rằng Khách hàng quan tâm theo nội dung, hình thức, tần suất`,
-            m: 0,
-        },
-        {
-            pid: 5,
-            desc: 'Kinh doanh dịch vụ nghiên cứu thị trường, thăm dò dư luận, môi giới',
-            m: 0,
-        },
-        {
-            pid: 6,
-            desc: 'Tổ chức giới thiệu và xúc tiến thương mại.',
-            m: 0,
-        },
-    ];
+interface DataNd13 {
+    showNd13?: boolean;
+    dataNd13?: any;
+}
 
-	const [checked, setChecked] = useState(false);
-	const [bg, setbg] = useState('');
+const Nd13 = ({ showNd13, dataNd13 }: DataNd13) => {
+	const { checked, setChecked, bg, setbg, showCheck, setShowCheck } = useContext(WrapperContext);
 
 	const handleCheck = useCallback(() => {
 		setChecked(!checked);
-	}, [checked])
+	}, [checked, setChecked])
 
 	useEffect(() => {
 		if (checked === true) {
@@ -54,14 +23,14 @@ const NDPage = () => {
 		}else {
 			setbg('')
 		}
-	}, [checked])
+	}, [checked, setbg])
 
     return (
-        <BackDrop hidden={false}>
+        <BackDrop hidden={showNd13}>
             <Flex
                 sx={{
-                    // visibility: !isShow ? 'hidden' : 'visible',
-                    // opacity: !isShow ? 0 : 1,
+                    // visibility: !showNd13 ? 'hidden' : 'visible',
+                    // opacity: !showNd13 ? 0 : 1,
                     transition: '400ms',
                     borderRadius: '16px',
                     backgroundColor: '#141415',
@@ -85,13 +54,11 @@ const NDPage = () => {
                     }}>
                     <Flex sx={{ justifyContent: 'center' }}>
                         <Text as="h1" sx={{ fontSize: '24px', fontWeight: '700', color: 'white' }}>
-                            Văn bản chấp thuận về xử lý và bảo vệ dữ liệu cá nhân
+                            {dataNd13?.title}
                         </Text>
                     </Flex>
-                    <Flex
-                        className="nd13"
-                        sx={{ overflow: 'auto', height: '535px', flexDirection: 'column', marginTop: '20px' }}>
-                        {/* <Text
+                    <Flex sx={{ overflow: 'auto', flexDirection: 'column', marginTop: '20px' }}>
+                        <Text
                             sx={{
                                 fontSize: '16px',
                                 fontWeight: 400,
@@ -99,18 +66,15 @@ const NDPage = () => {
                                 whiteSpace: 'break-spaces',
                                 textOverflow: 'ellipsis',
                             }}>
-                            {txt}
-                        </Text> */}
-                        <Text sx={{ fontSize: '17px', fontWeight: 700, color: 'white', marginY: '5px' }}>
-                            Mục đích xử lí
+                            {dataNd13?.policyDefinition}
                         </Text>
                         <Flex sx={{ flexDirection: 'column' }}>
-                            {data.map(item => {
-                                return <CheckBox key={item.pid} dataCheckBox={item} checked={checked} />;
+                            {dataNd13?.listPolicy?.map((item: any) => {
+                                return <CheckboxNd13 key={item.pid} dataPolicy={item} checked={checked} />;
                             })}
                         </Flex>
                     </Flex>
-                    <Flex
+					<Flex
                         sx={{
                             borderTop: '1px solid #464649',
                             marginTop: '20px',
@@ -118,9 +82,13 @@ const NDPage = () => {
                             width: '100%',
                         }}>
                         <Flex sx={{ marginTop: '20px', alignItems: 'center' }}>
-                            <Flex onClick={handleCheck}>
-                                { checked ? <Checkbox defaultChecked={true}/> : <Checkbox defaultChecked={false}/> }
-                            </Flex>
+							{ showCheck ?
+							<Flex>
+								<AiFillMinusSquare style={{ height: '20px', width: '20px', background: 'white' }} />
+							</Flex> :
+							<Flex onClick={handleCheck}>
+                                { checked ? <Checkbox defaultChecked={true}/> : <Checkbox defaultChecked={false} /> }
+                            </Flex> }
                             <Flex>
                                 <Text sx={{ fontSize: '14px', fontWeight: 400, color: 'white' }}>
                                     Tôi xác nhận mình đã đọc, hiểu và đồng ý toàn bộ nội dung của Chính sách BVDLCN của
@@ -138,4 +106,4 @@ const NDPage = () => {
     );
 };
 
-export default NDPage;
+export default Nd13;
