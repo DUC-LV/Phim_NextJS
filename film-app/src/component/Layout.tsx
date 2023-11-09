@@ -20,6 +20,7 @@ interface DataNd13 {
 export const WrapperContext = createContext<any>({});
 
 const Layout = ({ children }: React.PropsWithChildren<{}>) => {
+
 	const data = {
         errorCode: '200',
         message: 'Thành công',
@@ -28,9 +29,9 @@ const Layout = ({ children }: React.PropsWithChildren<{}>) => {
             policyDefinition: `Khách hàng đồng ý với Văn bản chấp thuận về xử lý và bảo vệ dữ liệu cá nhân (“Văn Bản”)`,
             confirmText: 'Tôi xác nhận đã đọc...',
             listPolicy: [
-                { pid: 1, desc: 'Mục đích nâng cao chất lượng Sản phẩm', m: 1 },
+                { pid: 1, desc: '* Mục đích nâng cao chất lượng Sản phẩm', m: 1 },
                 { pid: 2, desc: 'Tổ chức giới thiệu và xúc tiến thương mại', m: 0 },
-                { pid: 3, desc: 'Mục đích cung cấp sản phẩm, hàng hoá dịch vụ ', m: 1 },
+                { pid: 3, desc: '* Mục đích cung cấp sản phẩm, hàng hoá dịch vụ ', m: 1 },
             ],
         },
     };

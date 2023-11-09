@@ -8,6 +8,7 @@ import { BsCheckSquare } from 'react-icons/bs';
 interface Data {
     dataPolicy: Policy;
 	checked: boolean;
+	handleChange: (id: string, value: boolean) => void;
 }
 
 const CheckboxNd13 = ({ dataPolicy, checked }: Data) => {
@@ -22,6 +23,8 @@ const CheckboxNd13 = ({ dataPolicy, checked }: Data) => {
 			setCheck(false);
 		}
 	}, [checked])
+
+	// const handleChange
 
 	const handle = useCallback(() => {
 		setCheck(!check);

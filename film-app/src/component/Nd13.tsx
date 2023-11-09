@@ -12,7 +12,6 @@ interface DataNd13 {
 
 const Nd13 = ({ showNd13, dataNd13 }: DataNd13) => {
 	const { checked, setChecked, bg, setbg, showCheck, setShowCheck } = useContext(WrapperContext);
-
 	const handleCheck = useCallback(() => {
 		setChecked(!checked);
 	}, [checked, setChecked])
@@ -24,6 +23,31 @@ const Nd13 = ({ showNd13, dataNd13 }: DataNd13) => {
 			setbg('')
 		}
 	}, [checked, setbg])
+
+	const [data, setData] = useState<any>();
+
+	useEffect(() => {
+		const arr = [];
+		if (dataNd13?.listPolicy) {
+			for (const a of dataNd13?.listPolicy) {
+				a['value'] = false;
+				arr.push(a);
+			}
+		}
+		setData(arr);
+	}, [dataNd13.listPolicy])
+
+	const handleChange = (id: string, value: boolean) => {
+		const arr = [];
+		for (const a of data) {
+			if (a.pid !== id) {
+				arr.push(a);
+			} else {
+				arr.push({...a, value: value});
+			}
+		}
+	}
+
 
     return (
         <BackDrop hidden={showNd13}>
@@ -70,7 +94,12 @@ const Nd13 = ({ showNd13, dataNd13 }: DataNd13) => {
                         </Text>
                         <Flex sx={{ flexDirection: 'column' }}>
                             {dataNd13?.listPolicy?.map((item: any) => {
-                                return <CheckboxNd13 key={item.pid} dataPolicy={item} checked={checked} />;
+                                return <CheckboxNd13
+									key={item.pid}
+									dataPolicy={item}
+									checked={checked}
+									handleChange={handleChange}
+								/>;
                             })}
                         </Flex>
                     </Flex>
