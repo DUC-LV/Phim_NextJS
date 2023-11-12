@@ -1,88 +1,98 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
-import { Box, Checkbox, Grid, Text } from 'theme-ui';
-// import CheckBoxNoSelect from 'assets/icons/checkbox-no-select.svg';
-import { Policy, WrapperContext } from './Layout';
-// import CheckBoxSelected from 'assets/icons/checkbox-selected.svg';
-import { BsCheckSquare } from 'react-icons/bs';
+import React, { useCallback, useContext, useEffect, useState } from "react";
+import { Box, Grid, Text } from "theme-ui";
+import CheckboxNotSelect from '../assets/icon/CheckboxNotSelect.svg';
+import ChecboxSelected from '../assets/icon/CheckboxSelected.svg';
+import { WrapperContext } from "./Layout";
 
 interface Data {
-    dataPolicy: Policy;
+    listPolicy: any;
 	checked: boolean;
-	handleChange: (id: string, value: boolean) => void;
+	confirmText: string;
+	arrId?: any;
+	chooseCheckbox: (id: number) => void;
+	arr: number[]
 }
 
-const CheckboxNd13 = ({ dataPolicy, checked }: Data) => {
-	const [check, setCheck] = useState(false);
+const CheckboxNd13 = ({ listPolicy, checked , confirmText, arrId, chooseCheckbox, arr}: Data) => {
+	const { setStatusCheckbox, setBgButton } = useContext(WrapperContext);
+	const [check, setCheck] = useState(checked);
+	const [bgBox, setBgBox] = useState('');
+	const [colorBorderBox, setColorBorderBox] = useState('');
 	const [showMs, setShowMs] = useState(false);
-	const { setChecked, bg, setbg, showCheck, setShowCheck } = useContext(WrapperContext);
+
+	// console.log(arrId);
 
 	useEffect(() => {
 		if (checked === true) {
 			setCheck(true);
-		}else if (checked === false) {
+		} else if (checked === false) {
 			setCheck(false);
 		}
 	}, [checked])
 
-	// const handleChange
-
-	const handle = useCallback(() => {
-		setCheck(!check);
-		if (checked === true && dataPolicy.m === 1 && check === true) {
-			setbg('');
-			setShowCheck(true);
-			setShowMs(true);
-		} else if (checked === true && dataPolicy.m === 1 && check === false) {
-			setbg('red');
-			setShowCheck(false);
-			setShowMs(false);
-		} else if (checked === true && dataPolicy.m === 0 && check === true) {
-			setbg('red');
-			setShowCheck(true);
-		} else if (checked === true && dataPolicy.m === 0 && check === false) {
-			setbg('red');
-			setShowCheck(false);
-		}
-	}, [check, checked, dataPolicy.m, setShowCheck, setbg])
-
 	useEffect(() => {
-		if (checked === false && check === true && dataPolicy.m === 1) {
-			setbg('red');
-			setShowCheck(true);
-		} else if (checked === false && check === false && dataPolicy.m === 1) {
-			setbg('');
-			setShowCheck(false);
+		if (check === true && listPolicy.m === 1 ) {
+			setBgBox('#28282A');
+		} else if (check === false) {
+			setBgBox('');
 		}
-		else if (checked === false && check === true && dataPolicy.m === 0) {
-			setbg('');
-			setShowCheck(true);
-		}
-		else if (checked === false && check === false && dataPolicy.m === 0) {
-			setbg('');
-			setShowCheck(false);
-		}
-	}, [check, checked, dataPolicy.m, setShowCheck, setbg])
+	}, [check, listPolicy.m])
 
-	// const handle = () => {
-	// 	setCheck(!check);
-	// 	if (checked === true && dataPolicy.m === 1 && check === true) {
-	// 		setbg('');
-	// 		setShowCheck(true);
-	// 	} else if (checked === true && dataPolicy.m === 1 && check === false) {
-	// 		setbg('red');
-	// 		setShowCheck(false);
-	// 	} else if (checked === true && dataPolicy.m === 0 && check === true) {
-	// 		setbg('red');
-	// 		setShowCheck(true);
-	// 	} else if (checked === true && dataPolicy.m === 0 && check === false) {
-	// 		setbg('red');
-	// 		setShowCheck(false);
-	// 	}
-	// }
+	
 
-    return (
-        <>
-            <Grid
+	// const chooseCheckbox = useCallback(() => {
+	// 	setCheck(!check)
+	// 	if (checked === true) {
+	// 		if (check === true) {
+	// 			setStatusCheckbox(false);
+	// 			if (listPolicy.m === 1) {
+	// 				setShowMs(true);
+	// 				setBgButton('#5F5F63');
+	// 			}
+	// 		} else if (check === false) {
+	// 			setStatusCheckbox(true);
+	// 			if (listPolicy.m === 1) {
+	// 				setShowMs(false);
+	// 				setBgButton('#ED2C25');
+	// 			}
+	// 		}
+	// 	} else if (checked === false) {
+	// 		if (listPolicy.m === 1) {
+	// 			if (check === false) {
+	// 				setArr(arr.concat([listPolicy.id]))
+	// 			}
+			// 	if (check === false) {
+			// 		setBgButton('#ED2C25');
+			// 		setStatusCheckbox(false);
+			// 	} else if (check === true) {
+			// 		setStatusCheckbox(true);
+			// 		setBgButton('#5F5F63');
+			// 	}
+			// } else if (listPolicy.m === 0) {
+			// 	setBgButton('#5F5F63');
+			// 	if (check === false) {
+			// 		setStatusCheckbox(false);
+			// 	} else if (check === true) {
+			// 		setStatusCheckbox(true);
+			// 	}
+			// }
+		// }
+	// }, [arr, check, checked, listPolicy.id, listPolicy.m, setBgButton, setStatusCheckbox]);
+
+	// console.log(arr);
+
+	// let arr1 = [1, 2, 3];
+	// let arr2 = [2, 3];
+
+	// let isFound = arr1.some( ai => arr2.includes(ai) );
+
+	// console.log(isFound);
+
+	// && listPolicy.id === 3 && listPolicy.id === 4 && listPolicy.id === 5
+
+	return (
+		<>
+			<Grid
                 columns={[2, '0fr 1fr']}
                 sx={{
                     width: '99%',
@@ -90,21 +100,21 @@ const CheckboxNd13 = ({ dataPolicy, checked }: Data) => {
                     borderRadius: '6px',
                     border: '1px solid #464649',
                     alignItems: 'center',
-                    marginY: '5px',
-                    // background: bg,
+                    marginY: '6px',
+					backgroundColor: bgBox,
                 }}>
-                <Box onClick={handle}>
-					{check ? <BsCheckSquare style={{ height: '20px', width: '20px', background: 'white' }}/> : <Checkbox defaultChecked={false} /> }
+                <Box onClick={() => chooseCheckbox(arrId)} sx={{ width: '24px' }}>
+					{ arr?.includes(arrId) ? <ChecboxSelected /> : <CheckboxNotSelect /> }
                 </Box>
-                <Box sx={{ marginLeft: '20px' }}>
-                    <Text sx={{ fontSize: '16px', fontWeight: 400, color: 'white', lineHeight: '22px' }}>
-                        {dataPolicy.desc}
+                <Box>
+                    <Text sx={{ fontSize: '16px', fontWeight: 400, color: 'white' }}>
+                        {listPolicy.desc}
                     </Text>
                 </Box>
             </Grid>
-			{showMs && <Text sx={{ fontSize: '14px', fontWeight: 400, color: '#ED2C25' }}>Điều kiện bắt buộc chọn để Viettel cung cấp dịch vụ</Text> }
-        </>
-    );
-};
+			{ showMs && <Text sx={{ fontSize: '16px', fontWeight: 400, color: '#ED2C25'}}>{confirmText}</Text> }
+		</>
+	);
+}
 
 export default CheckboxNd13;

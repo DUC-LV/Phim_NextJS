@@ -1,9 +1,11 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
-import { Button, Checkbox, Flex, Text } from 'theme-ui';
-import CheckboxNd13 from './CheckboxNd13';
+import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import BackDrop from './BackDrop';
+import { Button, Flex, Text } from 'theme-ui';
+import CheckboxNd13 from './CheckboxNd13';
+import CheckboxNotSelect from '../assets/icon/CheckboxNotSelect.svg';
+import ChecboxSelected from '../assets/icon/CheckboxSelected.svg';
+import ChecboxMinus from '../assets/icon/CheckboxMinus.svg';
 import { WrapperContext } from './Layout';
-import { AiFillMinusSquare } from 'react-icons/ai';
 
 interface DataNd13 {
     showNd13?: boolean;
@@ -11,94 +13,106 @@ interface DataNd13 {
 }
 
 const Nd13 = ({ showNd13, dataNd13 }: DataNd13) => {
-	const { checked, setChecked, bg, setbg, showCheck, setShowCheck } = useContext(WrapperContext);
-	const handleCheck = useCallback(() => {
-		setChecked(!checked);
-	}, [checked, setChecked])
-
-	useEffect(() => {
-		if (checked === true) {
-			setbg('red');
-		}else {
-			setbg('')
-		}
-	}, [checked, setbg])
-
+	const { statusCheckbox, bgButton, setBgButton } = useContext(WrapperContext);
+	// const [checkAll, setCheckAll] = useState(false);
 	const [data, setData] = useState<any>();
+	const [isCheck, setIsCheck] = useState([]);
+	const [arr, setArr] = useState([]);
 
-	useEffect(() => {
-		const arr = [];
-		if (dataNd13?.listPolicy) {
-			for (const a of dataNd13?.listPolicy) {
-				a['value'] = false;
-				arr.push(a);
-			}
+	const selectedCheckbox = () => {
+		// console.log("arr", arr, dataNd13.listPolicy.map(e => e.id));
+		
+		if(arr.length === 0){
+			setArr(dataNd13.listPolicy.map(e => e.id))
+		} else {
+			setArr([])
 		}
-		setData(arr);
-	}, [dataNd13.listPolicy])
+	}
+
+	// useEffect(() => {
+	// 	setIsCheck(dataNd13?.listPolicy.map((item: any) => item.id));
+	// }, [dataNd13?.listPolicy])
+
+	// useEffect(() => {
+	// 	if (checkAll === true) {
+	// 		setBgButton('#ED2C25');
+	// 	} else if (checkAll === false) {
+	// 		setBgButton('#5F5F63');
+	// 	}
+	// }, [checkAll, setBgButton])
 
 	const handleChange = (id: string, value: boolean) => {
 		const arr = [];
 		for (const a of data) {
-			if (a.pid !== id) {
+			if (a.id !== id) {
 				arr.push(a);
 			} else {
 				arr.push({...a, value: value});
 			}
 		}
 	}
+	const chooseCheckbox = (id) => {
+		if(arr.includes(id)){
+			setArr(arr.filter(e => e !== id))
+		} else {
+			setArr(arr.concat([id]))
+		}
+	}
+	console.log(arr);
 
+	const policyRequired = useMemo(() => dataNd13.listPolicy.filter(e => e.m === 1).map(e => e.id), [dataNd13.listPolicy])
+	const enableButton = useMemo(() => policyRequired.every(e => arr?.includes(e)), [arr, policyRequired])
+	
+	console.log("policyRequired", policyRequired);
+	
 
-    return (
-        <BackDrop hidden={showNd13}>
-            <Flex
-                sx={{
-                    // visibility: !showNd13 ? 'hidden' : 'visible',
-                    // opacity: !showNd13 ? 0 : 1,
-                    transition: '400ms',
-                    borderRadius: '16px',
-                    backgroundColor: '#141415',
-                    boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
-                    position: 'fixed',
-                    top: '50%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    p: '20px',
-                    width: '755px',
-                }}>
-                <Flex
-                    sx={{
-                        width: '100%',
-                        height: '100%',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                        justifyContent: 'space-between',
-                        background: '#141415',
-                        borderRadius: '16px',
-                    }}>
-                    <Flex sx={{ justifyContent: 'center' }}>
+	return (
+		<BackDrop hidden={showNd13}>
+			<Flex
+				sx={{
+						// visibility: !showNd13 ? 'hidden' : 'visible',
+						// opacity: !showNd13 ? 0 : 1,
+						transition: '400ms',
+						borderRadius: '16px',
+						backgroundColor: '#141415',
+						boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
+						position: 'fixed',
+						top: '50%',
+						left: '50%',
+						transform: 'translate(-50%, -50%)',
+						p: '20px',
+						width: '755px',
+				}}>
+				<Flex
+					sx={{
+						width: '100%',
+						height: '100%',
+						flexDirection: 'column',
+						justifyContent: 'space-between',
+						background: '#141415',
+						borderRadius: '16px',
+					}}>
+					<Flex sx={{ justifyContent: 'center' }}>
                         <Text as="h1" sx={{ fontSize: '24px', fontWeight: '700', color: 'white' }}>
                             {dataNd13?.title}
                         </Text>
                     </Flex>
-                    <Flex sx={{ overflow: 'auto', flexDirection: 'column', marginTop: '20px' }}>
-                        <Text
-                            sx={{
-                                fontSize: '16px',
-                                fontWeight: 400,
-                                color: 'white',
-                                whiteSpace: 'break-spaces',
-                                textOverflow: 'ellipsis',
-                            }}>
-                            {dataNd13?.policyDefinition}
-                        </Text>
+					<Flex sx={{ marginTop: '25px', marginBottom: '12px' }}>
+						<Text as="h3" sx={{ fontSize: '18px', fontWeight: '700', color: 'white' }}>
+							{dataNd13.purposeActionText}
+						</Text>
+					</Flex>
+					<Flex sx={{ overflow: 'auto', flexDirection: 'column' }}>
                         <Flex sx={{ flexDirection: 'column' }}>
-                            {dataNd13?.listPolicy?.map((item: any) => {
+                            {dataNd13?.listPolicy?.map((item: any, index: any) => {
                                 return <CheckboxNd13
-									key={item.pid}
-									dataPolicy={item}
-									checked={checked}
-									handleChange={handleChange}
+									key={index}
+									listPolicy={item}
+									checked={true}
+									confirmText={dataNd13.warningUncheckText}
+									arrId={item.id}
+									chooseCheckbox={chooseCheckbox}
+									arr={arr}
 								/>;
                             })}
                         </Flex>
@@ -111,28 +125,20 @@ const Nd13 = ({ showNd13, dataNd13 }: DataNd13) => {
                             width: '100%',
                         }}>
                         <Flex sx={{ marginTop: '20px', alignItems: 'center' }}>
-							{ showCheck ?
-							<Flex>
-								<AiFillMinusSquare style={{ height: '20px', width: '20px', background: 'white' }} />
-							</Flex> :
-							<Flex onClick={handleCheck}>
-                                { checked ? <Checkbox defaultChecked={true}/> : <Checkbox defaultChecked={false} /> }
-                            </Flex> }
-                            <Flex>
-                                <Text sx={{ fontSize: '14px', fontWeight: 400, color: 'white' }}>
-                                    Tôi xác nhận mình đã đọc, hiểu và đồng ý toàn bộ nội dung của Chính sách BVDLCN của
-                                    Viettel
-                                </Text>
-                            </Flex>
+							{
+								dataNd13.listPolicy.length === arr.length ? 
+								<Flex onClick={selectedCheckbox}><ChecboxSelected /></Flex> : 
+								arr.length === 0 ? <Flex onClick={selectedCheckbox}><CheckboxNotSelect /></Flex> : <ChecboxMinus/>}
+                                
                         </Flex>
                         <Flex sx={{ marginTop: '20px', justifyContent: 'center' }}>
-                            <Button sx={{ cursor: 'pointer', background: bg }}>Đồng ý</Button>
+                            <Button disabled={!enableButton} sx={{ cursor: 'pointer', backgroundColor: enableButton ? "red" : "" }}>Đồng ý</Button>
                         </Flex>
                     </Flex>
-                </Flex>
-            </Flex>
-        </BackDrop>
-    );
-};
+				</Flex>
+			</Flex>
+		</BackDrop>
+	);
+}
 
 export default Nd13;

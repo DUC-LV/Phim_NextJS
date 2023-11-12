@@ -8,6 +8,8 @@ import getPopularMovie from "../service/getPopularMovie ";
 import Slide from "../container/Slide";
 import { showImage } from "../untils";
 import SlideShow from "../container/SlideShow";
+import ChecboxSelected from '../assets/icon/CheckboxSelected.svg';
+import ChecboxMinus from '../assets/icon/CheckboxMinus.svg';
 
 type Props = {
 	dataNowPlaying:Array<Object>;
@@ -32,6 +34,8 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
 const Home = ({ dataNowPlaying, dataTopMovie, dataMovieTheater, dataPopularMovie}: Props) => {
 	return(
 		<Box>
+			<ChecboxSelected />
+			<ChecboxMinus />
 			<Slide 
 				dataSlide={dataTopMovie?.map((item:any) => {
 					return {
